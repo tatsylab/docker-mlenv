@@ -1,17 +1,17 @@
 services:
   app:
     environment:
-      - COMPOSE_PROJECT_NAME=${USERNAME:-user}
+      - COMPOSE_PROJECT_NAME=${USER:-user}
     build:
       context: .
       args:
         USER_ID: ${UID}
         GROUP_ID: ${GID}
-        USERNAME: ${USERNAME:-user}
+        USER: ${USER:-user}
 
-    image: mlenv-app:${USERNAME:-user}
-    container_name: mlenv-app-${USERNAME:-user}
-    user: ${USERNAME:-user}
+    image: mlenv-app:${USER:-user}
+    container_name: mlenv-app-${USER:-user}
+    user: ${USER:-user}
     hostname: docker
     shm_size: 16gb
     command: tail -f /dev/null
@@ -21,7 +21,7 @@ services:
         target: /data
       - type: bind
         source: ./dev
-        target: /home/${USERNAME:-user}/dev
+        target: /home/${USER:-user}/dev
 
     deploy:
       resources:

@@ -2,7 +2,7 @@ FROM nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04 AS builder
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
-ARG USERNAME=user
+ARG USER=user
 ENV HOME=/root
 ENV TERM=xterm-256color
 SHELL ["/bin/bash", "-c"]
@@ -40,7 +40,7 @@ FROM nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04 AS runtime
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
-ARG USERNAME=user
+ARG USER=user
 ENV HOME=/root
 ENV TERM=xterm-256color
 SHELL ["/bin/bash", "-c"]
@@ -130,12 +130,13 @@ ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
 # Create a user
-RUN groupadd -g $GROUP_ID $USERNAME && \
-    useradd -ms /usr/bin/zsh -g $GROUP_ID -u $USER_ID $USERNAME && \
-    echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN groupadd -g $GROUP_ID $USER && \
+    useradd -ms /usr/bin/zsh -g $GROUP_ID -u $USER_ID $USER && \
+    echo "$USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-    ENV HOME=/home/$USERNAME
-USER $USERNAME
+    ENV HOME=/home/$USER
+
+USER $USER
 SHELL ["/usr/bin/zsh", "-c"]
 
 # Install Rust and Cargo
