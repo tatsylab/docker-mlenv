@@ -44,6 +44,12 @@ if docker info --format '{{json .SecurityOptions}}' | grep -q rootless; then
     bind_test_dir="$(mktemp -d)"
     bind_test_file="${bind_test_dir}/created-in-container"
 
+    cleanup_bind_test() {
+        rm -f -- "${bind_test_file}"
+        rmdir -- "${bind_test_dir}" 2>/dev/null || true
+    }
+    trap cleanup_bind_test EXIT
+
     docker run --rm \
         --mount "type=bind,src=${bind_test_dir},dst=/host-test" \
         "${base_tag}" \
@@ -52,6 +58,6 @@ if docker info --format '{{json .SecurityOptions}}' | grep -q rootless; then
     test "$(stat -c %u "${bind_test_file}")" -eq "$(id -u)"
     test "$(stat -c %g "${bind_test_file}")" -eq "$(id -g)"
 
-    rm -f -- "${bind_test_file}"
-    rmdir -- "${bind_test_dir}"
+    cleanup_bind_test
+    trap - EXIT
 fi

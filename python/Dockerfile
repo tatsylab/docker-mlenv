@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG BASE_IMAGE=ghcr.io/tatsylab/mlenv-base:cuda12.6.3
+ARG BASE_IMAGE=ghcr.io/tatsylab/mlenv-base:dev
 FROM ${BASE_IMAGE}
 
 ARG PYTHON_VERSION=3.11
