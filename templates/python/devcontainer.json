@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
   "name": "ML Development Environment",
   "image": "ghcr.io/tatsylab/mlenv-python:dev",
-  "runArgs": ["--gpus", "all"],
+  "runArgs": ["--gpus", "all", "--shm-size=16g"],
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
   "workspaceFolder": "/workspace",
   "containerUser": "root",

@@ -17,9 +17,9 @@ while keeping the resulting files owned by the host user.
 
 The Python template at `templates/python/devcontainer.json` is intended to be
 copied into each research project. It uses the published
-`ghcr.io/tatsylab/mlenv-python:dev` image, enables all NVIDIA GPUs, bind-mounts
-the project at `/workspace`, and uses fish for the VS Code integrated
-terminal.
+`ghcr.io/tatsylab/mlenv-python:dev` image, enables all NVIDIA GPUs, provides
+16 GB of shared memory, bind-mounts the project at `/workspace`, and uses fish
+for the VS Code integrated terminal.
 
 ### Prerequisites
 
