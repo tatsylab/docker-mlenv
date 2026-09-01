@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+  "name": "ML Development Environment",
+  "image": "ghcr.io/tatsylab/mlenv-python:dev",
+  "runArgs": ["--gpus", "all", "--shm-size=16g"],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
+  "containerUser": "root",
+  "remoteUser": "root",
+  "updateRemoteUserUID": false,
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.profiles.linux": {
+          "fish": {
+            "path": "/usr/bin/fish",
+            "args": ["-l"]
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "fish"
+      },
+      "extensions": [
+        "charliermarsh.ruff",
+        "ms-python.python",
+        "tamasfe.even-better-toml"
+      ]
+    }
+  }
+}
