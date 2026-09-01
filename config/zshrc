@@ -1,0 +1,10 @@
+# Minimal shared zsh configuration for the development images.
+HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+
+setopt HIST_IGNORE_DUPS
+setopt SHARE_HISTORY
+
+autoload -Uz compinit
+compinit
