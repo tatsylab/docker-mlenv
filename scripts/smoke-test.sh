@@ -6,7 +6,7 @@ base_tag="${BASE_TAG:-mlenv-base:test}"
 python_tag="${PYTHON_TAG:-mlenv-python:test}"
 
 docker build \
-    --file Dockerfile.base \
+    --file base/Dockerfile \
     --tag "${base_tag}" \
     .
 
@@ -24,7 +24,7 @@ docker run --rm "${base_tag}" bash -lc '
 '
 
 docker build \
-    --file Dockerfile.python \
+    --file python/Dockerfile \
     --build-arg "BASE_IMAGE=${base_tag}" \
     --tag "${python_tag}" \
     .
