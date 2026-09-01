@@ -4,9 +4,6 @@ ARG CUDA_VERSION=12.6.3
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn-devel-ubuntu22.04
 
 ARG NODE_MAJOR=24
-ARG USER=user
-ARG USER_ID=1000
-ARG GROUP_ID=1000
 
 ENV TZ=Asia/Tokyo \
     LANG=en_US.UTF-8 \
@@ -33,7 +30,6 @@ RUN apt-get update && \
         ninja-build \
         pkg-config \
         rsync \
-        sudo \
         tzdata \
         unzip \
         wget \
@@ -59,27 +55,18 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
         nodejs && \
     rm -rf /var/lib/apt/lists/*
 
-# Create the non-root development user. Administrative operations remain
-# explicit through sudo, but do not require a container-specific password.
-RUN groupadd --gid "${GROUP_ID}" "${USER}" && \
-    useradd \
-        --uid "${USER_ID}" \
-        --gid "${GROUP_ID}" \
-        --groups sudo \
-        --create-home \
-        --shell /usr/bin/zsh \
-        "${USER}" && \
-    echo "${USER} ALL=(ALL:ALL) NOPASSWD:ALL" > "/etc/sudoers.d/${USER}" && \
-    chmod 0440 "/etc/sudoers.d/${USER}" && \
-    mkdir -p "/home/${USER}/.config/fish" /workspace && \
-    chown -R "${USER}:${USER}" "/home/${USER}" /workspace
+# In Rootless Docker, container UID 0 maps to the unprivileged host user that
+# runs the daemon. Using root here keeps bind-mounted files owned by that host
+# user without granting host root privileges.
+RUN usermod --shell /usr/bin/zsh root && \
+    mkdir -p /root/.config/fish /workspace
 
-COPY --chown=${USER}:${USER} config/zshrc /home/${USER}/.zshrc
-COPY --chown=${USER}:${USER} config/fish/config.fish /home/${USER}/.config/fish/config.fish
+COPY config/zshrc /root/.zshrc
+COPY config/fish/config.fish /root/.config/fish/config.fish
 
-ENV HOME=/home/${USER}
+ENV HOME=/root
 
-USER ${USER}
+USER root
 WORKDIR /workspace
 
 CMD ["/usr/bin/zsh"]

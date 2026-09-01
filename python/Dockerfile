@@ -4,9 +4,7 @@ ARG BASE_IMAGE=ghcr.io/tatsylab/mlenv-base:cuda12.6.3
 FROM ${BASE_IMAGE}
 
 ARG PYTHON_VERSION=3.11
-ARG USER=user
 
-USER root
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Keep Ubuntu's system Python intact. The image-wide Python environment lives
@@ -26,13 +24,11 @@ RUN apt-get update && \
         setuptools \
         uv \
         wheel && \
-    chown -R "${USER}:${USER}" /opt/python && \
     rm -rf /var/lib/apt/lists/*
 
 ENV PATH=/opt/python/bin:${PATH} \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
-USER ${USER}
 WORKDIR /workspace
 
 CMD ["/usr/bin/zsh"]

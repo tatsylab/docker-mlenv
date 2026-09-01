@@ -8,9 +8,10 @@ Docker and VS Code Dev Containers.
 - Project-specific packages such as PyTorch belong in each project's
   `pyproject.toml` and `uv.lock`.
 
-Both images use the non-root user `user` (UID/GID 1000 by default). The user
-has passwordless `sudo` access so that administrative commands remain
-explicit.
+The images run as root inside the container. Under Rootless Docker, container
+UID/GID 0 maps to the unprivileged host user running the Docker daemon rather
+than to host root. This lets a Dev Container write to a bind-mounted project
+while keeping the resulting files owned by the host user.
 
 ## Build and smoke test
 
@@ -20,10 +21,11 @@ Run the CPU-independent build and command checks with:
 ./scripts/smoke-test.sh
 ```
 
-The script verifies the native toolchain, Node.js, shells, Python 3.11, uv,
-and non-root/sudo behavior. GPU runtime checks such as `nvidia-smi` must be
-performed separately on a GPU server with Rootless Docker and the NVIDIA
-Container Toolkit configured.
+The script verifies the native toolchain, Node.js, shells, Python 3.11, and uv.
+When the active Docker daemon is rootless, it also verifies ownership of a
+file created through a bind mount. GPU runtime checks such as `nvidia-smi`
+must be performed separately on a GPU server with Rootless Docker and the
+NVIDIA Container Toolkit configured.
 
 ## Legacy environment
 
