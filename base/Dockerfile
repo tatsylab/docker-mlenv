@@ -24,6 +24,8 @@ RUN apt-get update && \
         gettext \
         git \
         gnupg \
+        libgl1 \
+        libglib2.0-0 \
         libtool \
         libtool-bin \
         locales \
