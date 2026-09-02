@@ -87,7 +87,9 @@ than adding them to this shared image.
 
 The `dev` image tag follows the latest manually published development image.
 A project can replace it with a `sha-<commit SHA>` tag when it needs to pin an
-exact shared-image revision.
+exact shared-image revision. After a new `dev` image is published, run
+`Dev Containers: Rebuild Container Without Cache` to ensure that VS Code
+pulls the updated image instead of reusing the local copy.
 
 ## Build and smoke test
 
@@ -97,15 +99,8 @@ Run the CPU-independent build and command checks with:
 ./scripts/smoke-test.sh
 ```
 
-The script verifies the native toolchain, Node.js, shells, Python 3.11, and uv.
-When the active Docker daemon is rootless, it also verifies ownership of a
-file created through a bind mount. GPU runtime checks such as `nvidia-smi`
-must be performed separately on a GPU server with Rootless Docker and the
-NVIDIA Container Toolkit configured.
-
-## Legacy environment
-
-The original root-level `Dockerfile` and `docker-compose.yml` are retained
-temporarily for comparison until the split images have been validated. They
-describe the previous per-user Compose and container-SSH workflow and should
-not be used as the basis for new project Dev Containers.
+The script verifies the native toolchain, Node.js, shells, Python 3.11, uv, and
+the common OpenGL runtime libraries. When the active Docker daemon is rootless,
+it also verifies ownership of a file created through a bind mount. GPU runtime
+checks such as `nvidia-smi` must be performed separately on a GPU server with
+Rootless Docker and the NVIDIA Container Toolkit configured.
