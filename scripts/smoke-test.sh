@@ -20,6 +20,8 @@ docker run --rm "${base_tag}" bash -lc '
     npm --version
     zsh --version
     fish --version
+    ldconfig -p | grep -F "libGL.so.1"
+    ldconfig -p | grep -F "libglib-2.0.so.0"
 '
 
 docker build \
