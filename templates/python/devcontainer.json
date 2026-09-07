@@ -11,13 +11,51 @@
   "customizations": {
     "vscode": {
       "settings": {
+        "files.watcherExclude": {
+          "**/.git/objects/**": true,
+          "**/.git/subtree-cache/**": true,
+          "**/node_modules/**": true,
+          "**/.venv/**": true,
+          "**/.mypy_cache/**": true,
+          "**/.pytest_cache/**": true,
+          "**/.ruff_cache/**": true
+        },
         "terminal.integrated.profiles.linux": {
           "fish": {
             "path": "/usr/bin/fish",
             "args": ["-l"]
           }
         },
-        "terminal.integrated.defaultProfile.linux": "fish"
+        "terminal.integrated.defaultProfile.linux": "fish",
+        "[json][jsonc][javascript][typescript][yaml]": {
+          "editor.tabSize": 2,
+          "editor.insertSpaces": true,
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[toml]": {
+          "editor.tabSize": 2,
+          "editor.insertSpaces": true,
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "tamasfe.even-better-toml"
+        },
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+        "python.languageServer": "None",
+        "python.analysis.typeCheckingMode": "off",
+        "[python]": {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "explicit",
+            "source.organizeImports": "never",
+            "source.organizeImports.ruff": "explicit"
+          }
+        },
+        "ruff.enable": true,
+        "ruff.lint.enable": true,
+        "ruff.configurationPreference": "filesystemFirst",
+        "ty.diagnosticMode": "workspace",
+        "ty.disableLanguageServices": false
       },
       "extensions": [
         "astral-sh.ty",
