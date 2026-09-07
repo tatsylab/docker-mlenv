@@ -20,7 +20,9 @@
         "terminal.integrated.defaultProfile.linux": "fish"
       },
       "extensions": [
+        "astral-sh.ty",
         "charliermarsh.ruff",
+        "esbenp.prettier-vscode",
         "ms-python.python",
         "tamasfe.even-better-toml"
       ]
