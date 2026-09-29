@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
-ARG CUDA_VERSION=12.6.3
-FROM nvidia/cuda:${CUDA_VERSION}-cudnn-devel-ubuntu22.04
+ARG CUDA_VERSION=12.8.2
+FROM nvidia/cuda:${CUDA_VERSION}-devel-ubuntu22.04
 
 ARG NODE_MAJOR=24
 
