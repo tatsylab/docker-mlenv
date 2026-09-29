@@ -3,7 +3,7 @@
 This repository provides a two-layer image design for Rootless Docker and VS
 Code Dev Containers.
 
-- `base/Dockerfile`: CUDA 12.6.3, cuDNN, native build tools, shells, and Node.js 24 LTS
+- `base/Dockerfile`: CUDA 12.8.2, cuDNN, native build tools, shells, and Node.js 24 LTS
 - `python/Dockerfile`: Python 3.11 from deadsnakes, pip, setuptools, wheel, and uv
 - Project-specific packages such as PyTorch belong in each project's
   `pyproject.toml` and `uv.lock`.
